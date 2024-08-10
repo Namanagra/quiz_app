@@ -1,18 +1,19 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  // ignore: library_private_types_in_public_api
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacementNamed('/intro');
     });
   }
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Container(
             decoration: const BoxDecoration(
-              color: Colors.blue,
+              color: Colors.blue, // Background color of the splash screen
             ),
           ),
           const Center(
@@ -33,21 +34,19 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.quiz_outlined,
-                  size: 100,
-                  color: Colors.white,
+                  Icons.quiz, // Quiz icon from Material Icons
+                  size: 100.0, // Size of the icon
+                  color: Colors.white, // Color of the icon
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20), // Space between icon and text
                 Text(
-                  'Quizzy',
+                  'QUIZZY',
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
-                )
+                ),
               ],
             ),
           ),

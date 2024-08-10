@@ -5,15 +5,15 @@ class Options extends StatefulWidget {
   final ValueChanged<String> onSelected;
   final bool isSelected;
 
-  const Options({
-    super.key,
-    required this.option,
-    required this.onSelected,
-    required this.isSelected,
-  });
+  const Options(
+      {super.key,
+      required this.option,
+      required this.onSelected,
+      required this.isSelected});
 
   @override
-  State<Options> createState() => _OptionsState();
+  // ignore: library_private_types_in_public_api
+  _OptionsState createState() => _OptionsState();
 }
 
 class _OptionsState extends State<Options> {
@@ -24,14 +24,12 @@ class _OptionsState extends State<Options> {
       child: Container(
         height: 48,
         width: double.infinity,
-        margin: const EdgeInsets.symmetric(
-          vertical: 5.0,
-        ),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
             width: 3,
-            color: widget.isSelected ? Colors.green : Color(0xffa42fc1),
+            color: widget.isSelected ? Colors.green : const Color(0xffA42FC1),
           ),
           color:
               widget.isSelected ? Colors.green.withOpacity(0.2) : Colors.white,

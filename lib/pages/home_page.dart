@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:sitp_quiz_app/features/options.dart';
 import 'package:sitp_quiz_app/pages/completed_page.dart';
 
@@ -19,11 +17,8 @@ class _HomePageState extends State<HomePage> {
   int number = 0;
   Timer? _timer;
   int secondsRemaining = 15;
-
   List<String> shuffledOptions = [];
-
-  String? selectedOptions;
-
+  String? selectedOption;
   int score = 0;
 
   Future<void> api() async {
@@ -56,14 +51,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void nextQuestion() {
-    if (selectedOptions == responsiveData[number]['correct_answer']) {
+    if (selectedOption == responsiveData[number]['correct_answer']) {
       score++;
     }
+
     if (number < responsiveData.length - 1) {
       setState(() {
         number++;
         updateShuffleOptions();
-        selectedOptions = null;
+        selectedOption = null; // Reset the selected option
         secondsRemaining = 15;
       });
     } else {
@@ -87,7 +83,7 @@ class _HomePageState extends State<HomePage> {
     var currentQuestion = responsiveData[number];
     List<String> options =
         List<String>.from(currentQuestion['incorrect_answers']);
-    options.add(currentQuestion['correct_answers']);
+    options.add(currentQuestion['correct_answer']);
     options.shuffle();
 
     setState(() {
@@ -110,7 +106,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var screensize = MediaQuery.of(context).size;
+    var screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Padding(
@@ -118,22 +114,22 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             SizedBox(
-              height: screensize.height * 0.5,
-              width: screensize.width * 0.9,
+              height: screenSize.height * 0.5, // Increased height
+              width: screenSize.width * 0.9,
               child: Stack(
                 children: [
                   Container(
-                    height: screensize.height * 0.4,
-                    width: screensize.width * 0.85,
+                    height: screenSize.height * 0.4, // Increased height
+                    width: screenSize.width * 0.85,
                     decoration: BoxDecoration(
-                      color: const Color(0XFFA42FC1),
+                      color: const Color(0xffA42FC1),
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
                           offset: const Offset(0, 2),
-                          blurRadius: 2,
+                          blurRadius: 5,
                           spreadRadius: 2,
-                          color: Color(0xffa42fc1).withOpacity(0.4),
+                          color: const Color(0xffA42FC1).withOpacity(0.4),
                         ),
                       ],
                     ),
@@ -142,44 +138,40 @@ class _HomePageState extends State<HomePage> {
                     bottom: 60,
                     left: 22,
                     child: Container(
-                      height: screensize.height * 0.3,
-                      width: screensize.width * 0.85,
+                      height: screenSize.height * 0.3, // Increased height
+                      width: screenSize.width * 0.85,
                       decoration: BoxDecoration(
-                        color: const Color(0XFFA42FC1),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
                             offset: const Offset(0, 1),
-                            blurRadius: 2,
+                            blurRadius: 5,
                             spreadRadius: 3,
-                            color: Color(0xffa42fc1).withOpacity(0.4),
-                          ),
+                            color: const Color(0xffA42FC1).withOpacity(0.4),
+                          )
                         ],
                       ),
                       child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 18, vertical: 10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Center(
                               child: Text(
-                                'Question ${number + 1}/10',
-                                style: TextStyle(
-                                  color: Color(0xffa42fc1),
-                                ),
+                                "Question ${number + 1}/10",
+                                style:
+                                    const TextStyle(color: Color(0xffA42FC1)),
                               ),
                             ),
-                            const SizedBox(
-                              height: 25,
-                            ),
+                            const SizedBox(height: 25),
                             Text(
                               responsiveData.isNotEmpty
                                   ? responsiveData[number]['question']
-                                  : 'loading.....',
-                              style: TextStyle(
-                                fontSize: screensize.width * 0.04,
-                              ),
+                                  : 'Loading...',
+                              style:
+                                  TextStyle(fontSize: screenSize.width * 0.04),
                             ),
                           ],
                         ),
@@ -188,16 +180,25 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Positioned(
                     top: 20,
-                    right: 20,
+                    left: 20,
                     child: Icon(
-                      Icons.quiz_rounded,
-                      color: Colors.red,
-                      size: screensize.width * 0.1,
+                      Icons.quiz,
+                      size: screenSize.width * 0.1,
+                      color: Colors.green,
                     ),
                   ),
                   Positioned(
-                    bottom: screensize.height * 0.35,
-                    left: screensize.width * 0.4,
+                    top: 20,
+                    right: 20,
+                    child: Icon(
+                      Icons.quiz,
+                      size: screenSize.width * 0.1,
+                      color: Colors.red,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: screenSize.height * 0.35, // Adjusted position
+                    left: screenSize.width * 0.4,
                     child: CircleAvatar(
                       radius: 42,
                       backgroundColor: Colors.amber,
@@ -205,8 +206,8 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           secondsRemaining.toString(),
                           style: TextStyle(
-                            color: Color(0xffa42fc1),
-                            fontSize: screensize.width * 0.06,
+                            color: const Color(0XFFA42FC1),
+                            fontSize: screenSize.width * 0.06,
                           ),
                         ),
                       ),
@@ -215,13 +216,11 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: responsiveData.isNotEmpty &&
-                        responsiveData[number]['incorrect_answer'] != null
+                        responsiveData[number]['incorrect_answers'] != null
                     ? shuffledOptions.length
                     : 0,
                 itemBuilder: (context, index) {
@@ -230,26 +229,22 @@ class _HomePageState extends State<HomePage> {
                     option: option,
                     onSelected: (String value) {
                       setState(() {
-                        selectedOptions = value;
+                        selectedOption = value;
                       });
                     },
-                    isSelected: selectedOptions == option,
+                    isSelected: selectedOption == option,
                   );
                 },
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffa42ffc1),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 15,
-                  ),
+                  backgroundColor: const Color(0xffA42FC1),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -258,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: nextQuestion,
                 child: Container(
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'Next',
                     style: TextStyle(
                       color: Colors.white,

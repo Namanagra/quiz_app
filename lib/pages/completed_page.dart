@@ -4,29 +4,28 @@ class CompletedPage extends StatelessWidget {
   final int score;
   final int totalQuestions;
 
-  const CompletedPage({
-    super.key,
-    required this.score,
-    required this.totalQuestions,
-  });
+  const CompletedPage(
+      {super.key, required this.score, required this.totalQuestions});
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                    'https://images.unsplash.com/photo-1488433341267-2cf917b899f9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRyZWVzfGVufDB8fDB8fHww'),
+                    'https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D'), // Make sure you have an image asset
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Container(
-            color: Colors.black.withOpacity(0.5),
+            color:
+                Colors.black.withOpacity(0.5), // Add a semi-transparent overlay
           ),
           Center(
             child: Padding(
@@ -37,66 +36,54 @@ class CompletedPage extends StatelessWidget {
                   Text(
                     'Congratulations!',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: screenSize.width * 0.08,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Text(
-                    'You have completed the Quiz',
+                    'You have completed the quiz.',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: screenSize.width * 0.06,
                       color: Colors.white70,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Text(
-                    'Your Score',
+                    'Your Score:',
                     style: TextStyle(
                       fontSize: screenSize.width * 0.07,
                       color: Colors.white,
                     ),
                   ),
                   Text(
-                    '$score/$totalQuestions',
+                    '$score / $totalQuestions',
                     style: TextStyle(
                       fontSize: screenSize.width * 0.1,
                       fontWeight: FontWeight.bold,
                       color: Colors.greenAccent,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 30),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.restorablePushNamedAndRemoveUntil(
+                      Navigator.pushNamedAndRemoveUntil(
                         context,
                         '/',
                         (route) => false,
                       );
                     },
-                    icon: Icon(
-                      Icons.refresh,
-                      color: Colors.white,
-                    ),
+                    icon: const Icon(Icons.refresh, color: Colors.white),
                     label: const Text('Retry'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 221, 206, 224),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 15,
-                      ),
+                      backgroundColor: const Color.fromARGB(255, 221, 206, 224),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
